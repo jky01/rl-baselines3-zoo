@@ -10,6 +10,7 @@ import numpy as np
 import stable_baselines3 as sb3
 import torch as th
 from stable_baselines3.common.utils import set_random_seed
+from gymnasium.envs.registration import register
 
 # Register custom envs
 import rl_zoo3.import_envs  # noqa: F401
@@ -162,7 +163,28 @@ def train() -> None:
     # Going through custom gym packages to let them register in the global registry
     for env_module in args.gym_packages:
         importlib.import_module(env_module)
-
+    ##################################
+    register(
+        id="donkey-generated-track-v0",
+        entry_point="gym_donkeycar.envs.donkey_env:GeneratedRoadsEnv",
+        kwargs={
+            "conf": {
+                "exe_path": "/home/aa/Downloads/DonkeySimLinux/donkey_sim.x86_64",
+                "host": "127.0.0.1",
+                "port": 9091,
+                "guid": 0,
+                "frame_skip": 1,
+                "body_style": "donkey",
+                "body_rgb": (128, 128, 128),
+                "car_name": "car",
+                "font_size": 100,
+                "racer_name": "Your Name",
+                "country": "Place",
+                "bio": "I race robots."
+            }
+        },
+    )
+    ##################################
     env_id = args.env
     registered_envs = set(gym.envs.registry.keys())
 
