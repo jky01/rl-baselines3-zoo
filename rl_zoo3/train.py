@@ -165,7 +165,7 @@ def train() -> None:
         importlib.import_module(env_module)
     ##################################
     register(
-        id="donkey-generated-track-v0",
+        id="donkey-mountain-track-v0",
         entry_point="gym_donkeycar.envs.donkey_env:GeneratedRoadsEnv",
         kwargs={
             "conf": {

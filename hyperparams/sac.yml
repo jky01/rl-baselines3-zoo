@@ -1,3 +1,19 @@
+donkey-mountain-track-v0:
+  n_timesteps: !!float 1e6      # 總訓練步數
+  policy: 'CnnPolicy'           # 使用多層感知器策略（若輸入為圖像，改用 'CnnPolicy'）
+  n_envs: 1                     # 並行環境數
+  batch_size: 256               # 批次大小
+  buffer_size: 100000           # 經驗回放緩衝區大小
+  learning_rate: 0.0003         # 學習率
+  gamma: 0.99                   # 折扣因子
+  tau: 0.005                    # 目標網路更新速率
+  ent_coef: 'auto'              # 自動調整熵正則化係數
+  train_freq: 1                 # 每步更新一次
+  gradient_steps: 1             # 每次訓練的梯度步數
+  learning_starts: 1000         # 開始訓練前的隨機步數
+  use_sde: False                # 是否使用狀態依賴性探索
+  policy_kwargs: "dict(net_arch=[256, 256], log_std_init=-3)"  # 網路結構
+
 # Tuned
 MountainCarContinuous-v0:
   n_timesteps: !!float 50000

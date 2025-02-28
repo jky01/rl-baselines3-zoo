@@ -1,28 +1,27 @@
-donkey-generated-track-v0:
-  batch_size: 64
-  buffer_size: 20000
+donkey-mountain-track-v0:
+  batch_size: 256
+  buffer_size: 100000
   ent_coef: auto
   gamma: 0.99
-  gradient_steps: 256
+  gradient_steps: 64
   learning_rate: 0.00073
-  learning_starts: 500
+  learning_starts: 1000
   n_timesteps: 2000000.0
-  normalize: 
+  normalize:
     norm_obs: true
     norm_reward: false
   policy: MlpPolicy
-  policy_kwargs: 
+  policy_kwargs:
     log_std_init: -3
     net_arch: [256, 256]
     n_critics: 2
-    use_expln: true
+    n_quantiles: 25
   sde_sample_freq: 16
   tau: 0.02
-  train_freq: 200
+  train_freq: 64
   use_sde: true
   use_sde_at_warmup: true
-
-
+  
 # Tuned
 MountainCarContinuous-v0:
   n_timesteps: !!float 50000

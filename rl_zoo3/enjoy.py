@@ -9,6 +9,7 @@ import yaml
 from huggingface_sb3 import EnvironmentName
 from stable_baselines3.common.callbacks import tqdm
 from stable_baselines3.common.utils import set_random_seed
+from gymnasium.envs.registration import register
 
 import rl_zoo3.import_envs  # noqa: F401 pylint: disable=unused-import
 from rl_zoo3 import ALGOS, create_test_env, get_saved_hyperparams
@@ -78,6 +79,28 @@ def enjoy() -> None:  # noqa: C901
     # Going through custom gym packages to let them register in the global registory
     for env_module in args.gym_packages:
         importlib.import_module(env_module)
+##################
+    register(
+        id="donkey-mountain-track-v0",
+        entry_point="gym_donkeycar.envs.donkey_env:GeneratedRoadsEnv",
+        kwargs={
+            "conf": {
+                "exe_path": "/home/aa/Downloads/DonkeySimLinux/donkey_sim.x86_64",
+                "host": "127.0.0.1",
+                "port": 9091,
+                "guid": 0,
+                "frame_skip": 1,
+                "body_style": "donkey",
+                "body_rgb": (128, 128, 128),
+                "car_name": "car",
+                "font_size": 100,
+                "racer_name": "Your Name",
+                "country": "Place",
+                "bio": "I race robots.",
+            }
+        },
+    )
+    ##################
 
     env_name: EnvironmentName = args.env
     algo = args.algo
@@ -132,7 +155,7 @@ def enjoy() -> None:  # noqa: C901
         if args.verbose > 1:
             print(f"Setting torch.num_threads to {args.num_threads}")
         th.set_num_threads(args.num_threads)
-
+    
     is_atari = ExperimentManager.is_atari(env_name.gym_id)
     is_minigrid = ExperimentManager.is_minigrid(env_name.gym_id)
 
